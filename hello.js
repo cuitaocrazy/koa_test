@@ -17,7 +17,8 @@ app.use((context, next) => {
     i++
     console.log(i)
 	context.body = i
-	p = p.then(() => delay(1000)).then(next)
+    const tp = delay(1000)
+	p = p.then(() => tp).then(next)
 	return p
 })
 
