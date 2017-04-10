@@ -5,11 +5,18 @@ const app = new Koa()
 let p = Promise.resolve()
 
 function delay(n) {
-	return new Promise((resolve, reject) => setTimeout(resolve, n))
+	return new Promise((resolve, reject) => setTimeout(() => {
+		console.log("work")
+		resolve()
+	}, n))
 }
 
+let i = 0
+
 app.use((context, next) => {
-	context.body = "hello2"
+    i++
+    console.log(i)
+	context.body = i
 	p = p.then(() => delay(1000)).then(next)
 	return p
 })
