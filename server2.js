@@ -10,6 +10,7 @@ let i = 0
 
 app.use((context, next) => {
     i++
+    console.log(i)
     return new Promise((resovle) => {
         context.body = i
         setTimeout(() => resovle(next()), 1000)
