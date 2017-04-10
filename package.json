@@ -1,0 +1,7 @@
+{
+  "private": true,
+  "dependencies": {
+    "koa": "^2.2.0",
+    "node-fetch": "^1.6.3"
+  }
+}
