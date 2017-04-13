@@ -1,26 +1,22 @@
 const Koa = require('koa')
-
+const createAtomOpt = require('./atom_opt')
 const app = new Koa()
-
-let p = Promise.resolve()
-
-function delay(n) {
-	return new Promise((resolve, reject) => setTimeout(() => {
-		console.log("work")
-		resolve()
-	}, n))
-}
 
 let i = 0
 
-app.use((context, next) => {
-    i++
-    console.log(i)
-	context.body = i
-    const tp = delay(1000)
-	p = p.then(() => tp).then(next)
-	return p
-})
+function delayWorker(context) {
+	return new Promise((resolve, reject) => setTimeout(() => {
+        i++
+        console.log(i)
+        context.body = i
+		resolve()
+	}, 1000))
+}
+
+
+const atomOpt = createAtomOpt()
+
+app.use(atomOpt(delayWorker))
 
 
 app.listen(3000)
