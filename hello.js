@@ -1,23 +1,12 @@
 const Koa = require('koa')
-const createAtomOpt = require('./atom_opt')
+const route = require('koa-route')
+
+const res1 = require('./res1')
+const res2 = require('./res2')
+
 const app = new Koa()
 
-let i = 0
-
-function delay(n) {
-	return new Promise((resolve, reject) => setTimeout(resolve, n))
-}
-
-async function worker(context) {
-    await delay(1000)
-    i++
-    console.log(i)
-    context.body = i
-}
-
-const atomOpt = createAtomOpt()
-
-app.use(atomOpt(worker))
-
+app.use(route.get("/res1", res1))
+app.use(route.get("/res2", res2))
 
 app.listen(3000)
