@@ -5,11 +5,9 @@
 function createAtomOpt() {
     let p = Promise.resolve()
 
-    return function (worker) {
-        return function (context, next) {
-            p = p.then(() => worker(context)).then(next)
-            return p
-        }
+    return worker => (context, next) => {
+        p = p.then(() => worker(context)).then(next)
+        return p
     }
 }
 
